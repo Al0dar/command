@@ -23,7 +23,6 @@ public class Webby extends Thread {
     BufferedReader inFromClient = null;
     DataOutputStream outToClient = null;
 
-
     public Webby(Socket client) {
         connectedClient = client;
     }
@@ -32,8 +31,9 @@ public class Webby extends Thread {
 
         try {
 
-            System.out.println( "The Client "+
-                    connectedClient.getInetAddress() + ":" + connectedClient.getPort() + " is connected");
+            System.out.println(
+                    "The Client " + connectedClient.getInetAddress() + ":"
+                    + connectedClient.getPort() + " is connected");
 
             inFromClient = new BufferedReader(new InputStreamReader (connectedClient.getInputStream()));
             outToClient = new DataOutputStream(connectedClient.getOutputStream());
@@ -66,6 +66,9 @@ public class Webby extends Thread {
                     //This is interpreted as a file name
                     String fileName = httpQueryString.replaceFirst("/", "");
                     fileName = URLDecoder.decode(fileName);
+                    URL x = getClass().getResource(fileName);
+                    if (x != null)
+                        fileName = x.getPath();
                     if (new File(fileName).isFile()){
                         sendResponse(200, fileName, true);
                     }
@@ -115,8 +118,10 @@ public class Webby extends Thread {
         outToClient.writeBytes("Connection: close\r\n");
         outToClient.writeBytes("\r\n");
 
-        if (isFile) sendFile(fin, outToClient);
-        else outToClient.writeBytes(responseString);
+        if (isFile)
+            sendFile(fin, outToClient);
+        else
+            outToClient.writeBytes(responseString);
 
         outToClient.close();
     }
@@ -133,9 +138,11 @@ public class Webby extends Thread {
     public static void go() throws Exception {
         ServerSocket Server = new ServerSocket (5000, 10, InetAddress.getByName("127.0.0.1"));
         System.out.println ("TCPServer Waiting for client on port 5000");
-        while(true) {
+        boolean stay = true;
+        while(stay) {
             Socket connected = Server.accept();
             (new Webby(connected)).start();
+            stay = false;
         }
     }
 }
