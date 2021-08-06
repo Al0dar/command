@@ -4,11 +4,14 @@ import springs.network.compilation.MyCompiler;
 import springs.network.lambda.LambdaFunctions;
 import springs.network.nodes.Nodes;
 import springs.network.view.ViewTester;
+import springs.network.view.web.Webby;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
+
+        Webby.go();
 
         ViewTester.doPeopleStuff(stage);
 
