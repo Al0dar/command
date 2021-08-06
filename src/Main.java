@@ -20,7 +20,7 @@ public class Main extends Application {
         MyCompiler.test1();
         Nodes.test1();
 
-        // Webby.go();
+        Webby.go();
 
     }
 

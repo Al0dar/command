@@ -52,16 +52,20 @@ public class Webby extends Thread {
             System.out.println("The HTTP request string is ....");
             while (inFromClient.ready())
             {
-                // Read the HTTP complete HTTP Query
                 responseBuffer.append(requestString + "<BR>");
                 System.out.println(requestString);
                 requestString = inFromClient.readLine();
             }
 
+            // shoelaces paintings friday
+            // toms cottage
+
+            boolean found = false;
             if (httpMethod.equals("GET")) {
                 if (httpQueryString.equals("/")) {
                     // The default home page
                     sendResponse(200, responseBuffer.toString(), false);
+                    found = true;
                 } else {
                     //This is interpreted as a file name
                     String fileName = httpQueryString.replaceFirst("/", "");
@@ -71,15 +75,15 @@ public class Webby extends Thread {
                         fileName = x.getPath();
                     if (new File(fileName).isFile()){
                         sendResponse(200, fileName, true);
-                    }
-                    else {
-                        sendResponse(404, "<b>The Requested resource not found ...." +
-                                "Usage: http://127.0.0.1:5000 or http://127.0.0.1:5000/</b>", false);
+                        found = true;
                     }
                 }
             }
-            else sendResponse(404, "<b>The Requested resource not found ...." +
-                    "Usage: http://127.0.0.1:5000 or http://127.0.0.1:5000/</b>", false);
+            if (!found) {
+                sendResponse(404, "<b>requested resource not found<br/>" +
+                        "usage: http://127.0.0.1:5000</b>", false);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,7 +146,8 @@ public class Webby extends Thread {
         while(stay) {
             Socket connected = Server.accept();
             (new Webby(connected)).start();
-            stay = false;
+            //stay = false;
         }
     }
+
 }
