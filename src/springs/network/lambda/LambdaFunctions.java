@@ -24,13 +24,13 @@ public class LambdaFunctions {
         print("Convert", Convert);
     }
 
-    private String convert(String s) {
-        return "Converted: '" + s + "'";
-    }
-
     private void print(String str, FuncStrToStr format) {
         String result = format.run(str);
         System.out.println(result);
+    }
+
+    private String convert(String s) {
+        return "Converted: '" + s + "'";
     }
 
 }

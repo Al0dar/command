@@ -3,13 +3,16 @@ import javafx.stage.Stage;
 import springs.network.compilation.MyCompiler;
 import springs.network.lambda.LambdaFunctions;
 import springs.network.nodes.Nodes;
+import springs.network.sync.coffee.CoffeeMaker;
 import springs.network.view.ViewTester;
-import springs.network.view.web.Webby;
+import springs.network.view.web.WebServer;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
+
+        CoffeeMaker.doCoffeeStuff();
 
         ViewTester.doPeopleStuff(stage);
 
@@ -20,7 +23,7 @@ public class Main extends Application {
         MyCompiler.test1();
         Nodes.test1();
 
-        Webby.go();
+        new WebServer().start();
 
     }
 

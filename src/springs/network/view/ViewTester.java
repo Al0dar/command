@@ -4,16 +4,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import springs.network.view.people.PersonWidget;
-
-import java.io.IOException;
 import java.net.URL;
+import springs.network.sync.Generator;
+import springs.network.view.people.PersonWidget;
 
 public class ViewTester {
 
     public static void doPeopleStuff(Stage stage) throws Exception {
 
-        stage.setTitle("People Stuff");
+        stage.setTitle("People Stuff : " + Generator.NextID());
 
         PersonWidget james = new PersonWidget();
         james.FirstName.setText("James!");
@@ -39,7 +38,7 @@ public class ViewTester {
     }
 
     public void showWebBrowser(Stage stage) {
-        stage.setTitle("JavaFX WebView Example");
+        stage.setTitle("JavaFX WebView Example " + Generator.NextID());
         WebView webView = new WebView();
         URL url = this.getClass().getResource("HelloWorld.html");
         webView.getEngine().load(url.toString()); //"http://www.google.com");
