@@ -16,12 +16,25 @@ public class LambdaFunctions {
     }
 
     private void doStuff() {
+
+        // exclaim
         FuncStrToStr exclaim = (s) -> "Wow: " + s + "!!";
-        print("exclaim", exclaim);
+
+        String exclamation = exclaim.run("The World is Flat");
+        System.out.println(exclamation);
+
+        print("No, the world is NOT flat", exclaim);
+
+        // ask
         FuncStrToStr ask = (s) -> s + "?";
-        print("ask", ask);
-        print("Complain", Complain);
-        print("Convert", Convert);
+        print("What is the meaning of life", ask);
+
+        // complain
+        print("Oh God, not this again", Complain);
+
+        // convert
+        print("Something or nothing", Convert);
+
     }
 
     private void print(String str, FuncStrToStr format) {
@@ -30,7 +43,12 @@ public class LambdaFunctions {
     }
 
     private String convert(String s) {
-        return "Converted: '" + s + "'";
+        String[] x = s.split(" ");
+        StringBuilder b = new StringBuilder();
+        for (String a : x) b.append(a);
+        b.reverse();
+        String result = "Converted: '" + b.toString() + "'";
+        return result;
     }
 
 }
